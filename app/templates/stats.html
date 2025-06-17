@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Project Statistics - Cloud Document Analyzer{% endblock %}
+
+{% block extra_head %}
+<style>
+  body {
+    direction: ltr;
+  }
+  .stats-container {
+    background: white;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 450px;
+  }
+  h2 {
+    color: #333;
+    margin-bottom: 25px;
+  }
+  .stat {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #555;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+  <div class="stats-container">
+    <h2>إحصائيات المشروع</h2>
+    <div class="stat">عدد الملفات المخزنة: <strong>{{ file_count }}</strong></div>
+    <div class="stat">الحجم الكلي للملفات: <strong>{{ size_mb }} ميجابايت</strong></div>
+    <div class="stat">وقت الفرز: <strong>{{ sort_time }} ثانية</strong></div>
+  </div>
+{% endblock %}

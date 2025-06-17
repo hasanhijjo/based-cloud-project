@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Document Classifications - Cloud Document Analyzer{% endblock %}
+
+{% block extra_head %}
+<style>
+  table {
+    border-collapse: collapse;
+    width: 80%;
+    margin: auto;
+  }
+  th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+  }
+  th {
+    background-color: #f4f4f4;
+  }
+  tr:hover {
+    background-color: #e9e9e9;
+  }
+  .category {
+    font-weight: bold;
+  }
+
+  .flashes { list-style: none; padding: 0; }
+.flashes li.success { color: green; }
+.flashes li.error { color: red; }
+
+</style>
+{% endblock %}
+
+{% block content %}
+  <div style="width: 100%; max-width: 900px;">
+    <h2 style="text-align:center;">Document Classifications</h2>
+    <div class="button-container">
+    </div>
+    <table>
+  <thead>
+    <tr>
+      <th>Filename</th>
+      <th>Category</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for file in files %}
+    <tr>
+      <td>{{ file.filename }}</td>
+      <td>{{ file.category }}</td>
+      <td>
+        <form action="{{ url_for('delete_file') }}" method="post" onsubmit="return confirm('هل أنت متأكد من حذف الملف؟');">
+          <input type="hidden" name="filename" value="{{ file.filename }}">
+          <button type="submit" style="background-color:#dc3545; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">حذف</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class="flashes">
+    {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+  </div>
+{% endblock %}
